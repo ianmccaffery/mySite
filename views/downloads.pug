@@ -1,0 +1,9 @@
+extends layout
+
+block layout-content
+	div.View.DownloadsView
+		h1.Banner DOWNLOADS
+		div.DownloadBar
+			each file in files
+				a(href='/public/downloads/'+ file)
+					div.DownloadButton #{file}
