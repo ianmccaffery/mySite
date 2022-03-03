@@ -89,8 +89,8 @@ async function readFiles(dir, isRecursive) {
 app.get("/downloads", async (req, res) => {
   f = readFiles('public', 1);
   f.then(data => {
-    console.log("final output: ");
-    console.log(data)
+    // console.log("final output: ");
+    // console.log(data)
     res.render("downloads", { title: "Downloads", files: data });
   })
 });
