@@ -3,6 +3,6 @@ extends layout
 block layout-content
 	div.View.PhotosView
 		h1.Banner PHOTO GALLERY
-		div.gallery
-			each photo in photos
-				img(src= '/'+ file)
+		div.Gallery
+		each photo in photos
+			img(src=photo width="auto" height="300")

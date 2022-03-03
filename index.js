@@ -7,7 +7,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-
 /**
  * App Variables
  */
@@ -96,7 +95,13 @@ app.get("/downloads", async (req, res) => {
 });
 
 app.get("/photography", (req, res) => {
-  res.render("photography", {title: "Photography", files: data});
+  f = readFiles('public/photos', 0);
+  f.then(data => {
+    console.log("final output: ");
+    console.log(data)
+    res.render("photography", {title: "Photography", photos: data});
+  })
+  
 });
 
 // app.get("/downloads", (req, res) => {

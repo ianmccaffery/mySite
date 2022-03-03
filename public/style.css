@@ -53,6 +53,10 @@ a {
   user-select: none;
 }
 
+img {
+  object-fit: fill;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -180,6 +184,33 @@ a {
   box-shadow: var(--ui-shadow);
 }
 
+.Gallery {
+  display:  flex;
+  justify-content:  right;
+  align-items: right;
+  align-self: center;
+  border-radius: 5px;
+  margin: 15px;
+  width: 100%;
+  height: 100%;
+  background: rgba(200,200,200,.3);
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+.MyImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  height: 300px;
+  width: fit-content;
+  min-width: 300px;
+
+  border-radius: 30px;
+
+}
+
 .PhotoButton {
   background: url(camera.png);
   display: flex;
@@ -188,7 +219,7 @@ a {
 }
 
 .WelcomeView {
-  background: url("valley.jpg") left bottom;
+  background: url("photos/valley.jpg") left bottom;
   background-size: cover;
 }
 
@@ -196,6 +227,7 @@ a {
   background: url("valley.jpg") left bottom;
   background-size: cover;
 }
+
 
 .UserView {
   background: url("valley.jpg") left bottom;
