@@ -39,21 +39,64 @@ app.get("/user", (req, res) => {
   res.render("user", { title: "Profile", userProfile: { nickname: "Auth0" }});
 });
 
-const f = new Promise((resolve, reject) => {
-  fs.readdir(path.join(__dirname, 'public/downloads'), (err, data) => {
-    if (err) {
-      reject(err)
-      return
-    }
+
+/*
+Takes in a directory (relative to '/'), and creates a promise for
+all the file (NOT DIRS) locations that are inside of it (recursively if requested).
+
+Returns that promise.
+*/
+
+
+async function readFiles(dir, isRecursive) {
+  let directory = path.join(__dirname, dir);
+  let output = new Promise((resolve, reject) => {
+    fs.readdir(directory, (err, files) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      let all_child_promises = []; //will be empty if not recursive. else filled with child readFiles promises.
+      if (isRecursive) {
+        files.forEach(file => {
+          if (fs.lstatSync(path.resolve(directory, file)).isDirectory()) {
+            let internal_files = readFiles(path.join(dir, file), isRecursive); //promise for these internal files.
+            all_child_promises.push(internal_files); //container for all the promises in this recursion.
+          }
+        })
+      }
+      let files2 = [];
+      Promise.all(all_child_promises).then((arrays) => {
+        //Add all child arrays to this array.
+        arrays.forEach(array => {
+          for (let i of array) {
+            files2.push(i);
+          }
+        })
+        files.forEach(file => {
+          file2=path.join(dir, file);
+          files2.push(file2);
+        })
+        files = files2;
+        resolve(files);
+      })
+    })
+  })
+  return output;
+}
+
+app.get("/downloads", async (req, res) => {
+  f = readFiles('public', 1);
+  f.then(data => {
+    console.log("final output: ");
     console.log(data)
-    resolve(data)
+    res.render("downloads", { title: "Downloads", files: data });
   })
 });
 
-app.get("/downloads", async (req, res) => {
-  f
-  .then(data => res.render("downloads", { title: "Downloads", files: data }))
-  // res.render("downloads", { title: "Downloads", files: f})
+app.get("/photography", (req, res) => {
+  res.render("photography", {title: "Photography", files: data});
 });
 
 // app.get("/downloads", (req, res) => {

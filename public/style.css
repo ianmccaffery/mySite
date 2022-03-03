@@ -97,6 +97,7 @@ a {
 .Message {
   background: white;
   padding: 30px;
+  border-radius: 5px;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
 }
@@ -112,6 +113,7 @@ a {
   height: 100%;
   background: rgba(200,200,200,.3);
   padding: 0 20px;
+  flex-wrap: wrap;
 }
 
 .Message > .Title {
@@ -176,6 +178,13 @@ a {
 
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
+}
+
+.PhotoButton {
+  background: url(camera.png);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .WelcomeView {
